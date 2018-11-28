@@ -1,0 +1,35 @@
+﻿<Window x:Class="DataTableDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        xmlns:local="clr-namespace:DataTableDemo"
+        xmlns:data="clr-namespace:System.Data;assembly=System.Data"
+        xmlns:interaction="http://schemas.microsoft.com/expression/2010/interactivity"
+        Title="MainWindow" Height="350" Width="525" WindowState="Normal">
+
+    <Window.Resources>
+        <Style TargetType="syncfusion:VirtualizingCellsControl">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Row.RowState}" Value="{x:Static data:DataRowState.Modified}">
+                    <Setter Property="Background" Value="LightYellow" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <local:ViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <syncfusion:SfDataGrid ItemsSource="{Binding SourceTable}"
+			AllowEditing="True" 
+			AutoGenerateColumns="True" >
+
+            <interaction:Interaction.Behaviors>
+                <local:SfDataGridBehavior/>
+            </interaction:Interaction.Behaviors>
+
+        </syncfusion:SfDataGrid>
+    </Grid>
+</Window>
